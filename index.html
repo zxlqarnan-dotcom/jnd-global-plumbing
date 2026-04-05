@@ -101,6 +101,35 @@
     <p>Email: Jndresorces0@gmail.com</p>
     <p>Address: 23, jalan laksmana 10 kampung LAKSAMANA 68100 Batu Caves </p>
   </div>
+  <!-- ============== CUSTOMER REVIEWS SECTION ============== -->
+<section id="reviews" class="py-5 bg-white">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-5 text-primary">Customer Reviews</h2>
+    
+    <div class="row g-4" id="reviews-container">
+      <!-- Reviews yahan dynamically load honge -->
+    </div>
+
+    <!-- Add Review Form -->
+    <div class="mt-5 p-4 border rounded bg-light">
+      <h5 class="text-center mb-4">Give Your Review</h5>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <input type="text" id="review-name" class="form-control" placeholder="Your Full Name">
+        </div>
+        <div class="col-md-6 mb-3">
+          <select id="review-rating" class="form-select">
+            <option value="5">★★★★★ (5 Stars)</option>
+            <option value="4">★★★★☆ (4 Stars)</option>
+            <option value="3">★★★☆☆ (3 Stars)</option>
+          </select>
+        </div>
+      </div>
+      <textarea id="review-text" class="form-control mb-3" rows="4" placeholder="Write your honest review here..."></textarea>
+      <button onclick="submitReview()" class="btn btn-primary w-100">Submit Review</button>
+    </div>
+  </div>
+</section>
 </section>
 
 <footer class="bg-dark text-white py-4 text-center">

@@ -99,3 +99,103 @@ document.addEventListener('DOMContentLoaded', function () {
 
     console.log('%cJND Global Enterprise Website Loaded Successfully!', 'color: #1E40AF; font-weight: bold;');
 });
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBot3wrVQzkfLo0fZvPTHOztm0SJWoTVG4",
+  authDomain: "jnd-global-plumbing.firebaseapp.com",
+  projectId: "jnd-global-plumbing",
+  storageBucket: "jnd-global-plumbing.firebasestorage.app",
+  messagingSenderId: "554977950642",
+  appId: "1:554977950642:web:c642f8a5b87478486a82ab",
+  measurementId: "G-R9QSZ7CM2W"
+};
+// ==================== JND GLOBAL - Firebase Reviews ====================
+
+// ==================== 🔥 FIREBASE CONFIG YAHAN PASTE KARO 🔥 ====================
+const firebaseConfig = {
+  apiKey: "AIzaSyxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",           // ← Yahan apna apiKey
+  authDomain: "jnd-global-plumbing.firebaseapp.com",       // ← Apna authDomain
+  projectId: "jnd-global-plumbing",                        // ← Apna projectId
+  storageBucket: "jnd-global-plumbing.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:xxxxxxxxxxxxxxxxxxxxxxxx"
+};
+// =============================================================================
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Load Reviews Function
+function loadReviews() {
+  const container = document.getElementById("reviews-container");
+  if (!container) return;
+
+  container.innerHTML = '<p class="text-center text-muted">Loading reviews...</p>';
+
+  db.collection("reviews").orderBy("timestamp", "desc").get()
+    .then((querySnapshot) => {
+      container.innerHTML = "";
+
+      if (querySnapshot.empty) {
+        container.innerHTML = `<p class="text-center text-muted">No reviews yet. Be the first to review us!</p>`;
+        return;
+      }
+
+      querySnapshot.forEach((doc) => {
+        const r = doc.data();
+        const stars = "★".repeat(Math.floor(r.rating || 5));
+
+        const reviewHTML = `
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <div class="text-warning mb-3 fs-4">${stars}</div>
+                <p class="fst-italic">"${r.text}"</p>
+                <div class="mt-4 pt-3 border-top">
+                  <strong>${r.name}</strong><br>
+                  <small class="text-muted">${r.date ? new Date(r.date.seconds * 1000).toLocaleDateString() : 'Just now'}</small>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        container.innerHTML += reviewHTML;
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      container.innerHTML = `<p class="text-danger text-center">Failed to load reviews.</p>`;
+    });
+}
+
+// Submit Review Function
+function submitReview() {
+  const name = document.getElementById("review-name").value.trim();
+  const rating = parseInt(document.getElementById("review-rating").value);
+  const text = document.getElementById("review-text").value.trim();
+
+  if (!name || !text) {
+    alert("Please enter your name and review message.");
+    return;
+  }
+
+  db.collection("reviews").add({
+    name: name,
+    rating: rating,
+    text: text,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  })
+  .then(() => {
+    alert("✅ Thank you! Your review has been submitted successfully.");
+    document.getElementById("review-name").value = "";
+    document.getElementById("review-text").value = "";
+    loadReviews(); // Refresh kar do
+  })
+  .catch((error) => {
+    console.error("Error adding review:", error);
+    alert("❌ Failed to submit review. Please try again.");
+  });
+}
+
+// Page load hone par reviews load ho jayein
+window.onload = loadReviews;
