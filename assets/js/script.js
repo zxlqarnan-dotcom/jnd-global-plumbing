@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('%cJND Global Enterprise Website Loaded Successfully!', 'color: #1E40AF; font-weight: bold;');
 });
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+const baseConfig = {
   apiKey: "AIzaSyBot3wrVQzkfLo0fZvPTHOztm0SJWoTVG4",
   authDomain: "jnd-global-plumbing.firebaseapp.com",
   projectId: "jnd-global-plumbing",
