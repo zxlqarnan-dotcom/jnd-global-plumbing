@@ -113,18 +113,22 @@ const firebaseConfig = {
 
 // ==================== 🔥 FIREBASE CONFIG YAHAN PASTE KARO 🔥 ====================
 const firebaseConfig = {
-  apiKey: "AIzaSyxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",           // ← Yahan apna apiKey
+  apiKey: "AIzaSyBot3wrVQzkfLo0fZvPTHOztm0SJWoTVG4",           // ← Yahan apna apiKey
   authDomain: "jnd-global-plumbing.firebaseapp.com",       // ← Apna authDomain
   projectId: "jnd-global-plumbing",                        // ← Apna projectId
   storageBucket: "jnd-global-plumbing.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:xxxxxxxxxxxxxxxxxxxxxxxx"
+  messagingSenderId: "554977950642",
+  appId: "1:554977950642:web:c642f8a5b87478486a82ab"
 };
 // =============================================================================
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 // Load Reviews Function
 function loadReviews() {
