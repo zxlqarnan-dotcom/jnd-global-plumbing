@@ -203,3 +203,67 @@ function submitReview() {
 
 // Page load hone par reviews load ho jayein
 window.onload = loadReviews;
+
+// Simple LocalStorage based Reviews System
+let reviews = JSON.parse(localStorage.getItem("jndReviews")) || [];
+
+// Load Reviews
+function loadReviews() {
+  const container = document.getElementById("reviews-container");
+  container.innerHTML = "";
+
+  if (reviews.length === 0) {
+    container.innerHTML = `<p class="text-center text-muted">No reviews yet. Be the first to review!</p>`;
+    return;
+  }
+
+  reviews.forEach(review => {
+    const stars = "★".repeat(review.rating);
+    const html = `
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="text-warning mb-3 fs-4">${stars}</div>
+            <p class="fst-italic">"${review.text}"</p>
+            <div class="mt-3">
+              <strong>${review.name}</strong><br>
+              <small class="text-muted">Just now</small>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    container.innerHTML += html;
+  });
+}
+
+// Submit Review
+function submitReview() {
+  const name = document.getElementById("review-name").value.trim();
+  const rating = parseInt(document.getElementById("review-rating").value);
+  const text = document.getElementById("review-text").value.trim();
+
+  if (!name || !text || !rating) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  reviews.unshift({
+    name: name,
+    rating: rating,
+    text: text,
+    date: new Date().toLocaleDateString()
+  });
+
+  localStorage.setItem("jndReviews", JSON.stringify(reviews));
+  
+  alert("Thank you! Your review has been added.");
+  
+  // Clear form
+  document.getElementById("review-name").value = "";
+  document.getElementById("review-text").value = "";
+  
+  loadReviews();   // Turant show ho jayega
+}
+
+// Page load par reviews dikhao
+window.onload = loadReviews;
